@@ -7,7 +7,7 @@
 {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
-                "openssl-1.1.1u"
+        "openssl-1.1.1u"
 		"python-2.7.18.6"
               ];
 hardware.opengl.driSupport32Bit = true;
@@ -23,47 +23,54 @@ nix.settings = {
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
+  ## Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.grub.theme = true;
 
-  networking.hostName = "nixos-studio"; # Define your hostname.
+  networking.hostName = "Lappen"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
-  time.timeZone = "America/Chicago";
+  ## Set your time zone.
+  time.timeZone = "Europe/Stockholm";
 
-  # Select internationalisation properties.
+  ## Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    packages=[ pkgs.terminus_font ];
-    font="${pkgs.terminus_font}/share/consolefonts/ter-i22b.psf.gz";
-    useXkbConfig = true; # use xkbOptions in tty.
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "sv_SE.UTF-8";
+    LC_IDENTIFICATION = "sv_SE.UTF-8";
+    LC_MEASUREMENT = "sv_SE.UTF-8";
+    LC_MONETARY = "sv_SE.UTF-8";
+    LC_NAME = "sv_SE.UTF-8";
+    LC_NUMERIC = "sv_SE.UTF-8";
+    LC_PAPER = "sv_SE.UTF-8";
+    LC_TELEPHONE = "sv_SE.UTF-8";
+    LC_TIME = "sv_SE.UTF-8";
   };
+
+  ## Shell
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
-  services.xserver.layout = "us";
 
-  services.xserver.displayManager = {
-	lightdm.enable = true;
-  	autoLogin = {
-		enable = true;
-		user = "titus";
-	};
+  # Enable the KDE Plasma Desktop Environment.
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "se";
+    xkbVariant = "";
   };
-services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-1 --off --output DP-2 --off --output DP-3 --off --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate normal
-'';
-  
- services.picom.enable = true;
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+
+  # Configure console keymap
+  console.keyMap = "sv-latin1";
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.titus = {
+  users.users.kieeps = {
      isNormalUser = true;
      extraGroups = [ "wheel" "kvm" "input" "disk" "libvirtd" ]; # Enable ‘sudo’ for the user.
   };
@@ -71,97 +78,56 @@ services.xserver.displayManager.setupCommands = ''
   # List packages installed in system profile. To search, run:
   # $ nix search wget
    environment.systemPackages = with pkgs; [
-        vim
 	wget
-	w3m
-	dmenu
-  neofetch
-	neovim
-	autojump
-	starship
-	brave
-	bspwm
-	cargo
-	celluloid
-	chatterino2
-  clang-tools_9
-	davinci-resolve
-	dwm
-	dunst
-	elinks
-	eww
-	feh
-	flameshot
+    neofetch
 	flatpak
-  fontconfig
-  freetype
 	gcc
-	gh
-	gimp
 	git
 	github-desktop
-	gnugrep
-	gnumake
 	gparted
-	hugo
-	kitty
 	libverto
-  luarocks
 	lutris
-	mangohud
-	neovim
 	nfs-utils
-	ninja
-	nodejs
-	nomacs
 	openssl
-	pavucontrol
-	picom
-	polkit_gnome
 	powershell
 	protonup-ng
 	python3Full
 	python.pkgs.pip
 	qemu
-	ripgrep
-	rofi
 	steam
 	steam-run
-	sxhkd
-	st
-	stdenv
-	synergy
-	swaycons
-	terminus-nerdfont
-	tldr
-	trash-cli
-	unzip
-	variety
 	virt-manager
 	xclip
-	xdg-desktop-portal-gtk
-	xfce.thunar
-  xorg.libX11
-  xorg.libX11.dev
-  xorg.libxcb
-  xorg.libXft
-  xorg.libXinerama
-	xorg.xinit
-  xorg.xinput
+    firefox
+    discord
+    yakuake
+    libreoffice
+    vscode
+    docker-compose
+    nextcloud-client
+    htop
+    radeontop
+    btop
+    zsh
+    oh-my-zsh
+    tailscale
+    element-desktop
+    tlp
+
+    # Overrides, Extra deps
 	(lutris.override {
 	       extraPkgs = pkgs: [
-		 # List package dependencies here
 		 wineWowPackages.stable
 		 winetricks
 	       ];
 	    })
   ];
 
-  nixpkgs.overlays = [
-	(final: prev: {
-		dwm = prev.dwm.overrideAttrs (old: { src = /home/titus/GitHub/dwm-titus ;});
-	})
-  ];
+#  nixpkgs.overlays = [
+#	(final: prev: {
+#		dwm = prev.dwm.overrideAttrs (old: { src = /home/titus/GitHub/dwm-titus ;});
+#	})
+#  ];
   
   ## Gaming
 	programs.steam = {
@@ -172,6 +138,7 @@ services.xserver.displayManager.setupCommands = ''
 	  
 
   # List services that you want to enable:
+  services.tailscale.enable = true;
   virtualisation.libvirtd.enable = true; 
   # enable flatpak support
   services.flatpak.enable = true;
