@@ -4,6 +4,8 @@
   imports = [ <nixpkgs/nixos/modules/virtualisation/lxc-container.nix> ];
   time.timeZone = "Europe/Stockholm";
 
+  modules = [ arion.nixosModules.arion ];
+
   ## Supress systemd units that don't work because of LXC
   systemd.suppressedSystemUnits = [
     "dev-mqueue.mount"
@@ -49,6 +51,17 @@
 
   ## virtualisation
   virtualisation.docker.enable = true;
+  virtualisation.arion = {
+   backend = "docker";
+    projects = {
+      "jellyfin" = settings.services."jellyfin".service = {
+        image = "lscr.io/linuxserver/jellyfin:latest";
+        restart = "unless-stopped";
+        environment = { PUID=1000; PGID=1000; TZ=Etc/UTC };
+        ports = {"8096"}
+      };
+    };
+  };
 
   ## Services
   services.tailscale.enable = true;
