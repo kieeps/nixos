@@ -51,6 +51,8 @@
 
   ## virtualisation
   virtualisation.docker.enable = true;
+  virtualisation.arion = {
+  };
 
   ## Services
   services.tailscale.enable = true;
