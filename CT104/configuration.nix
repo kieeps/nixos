@@ -55,7 +55,7 @@
     enable = true;
     settings.PasswordAuthentication = false;
     settings.KbdInteractiveAuthentication = false;
-    settings.PermitRootLogin = "yes";
+    #settings.PermitRootLogin = "yes";
  };
   system.stateVersion = "23.05";
 }
