@@ -15,8 +15,6 @@
     wget
     tailscale
     git
-    docker
-    docker-compose
 
   ];
 
@@ -48,6 +46,9 @@
       extraGroups = [ "wheel" ];
     };
   };
+
+  ## virtualisation
+  virtualisation.docker.enable = true;
 
   ## Services
   services.tailscale.enable = true;
