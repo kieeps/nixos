@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, lib, config, pkgs, ... }:
 
 {
   imports = [ <nixpkgs/nixos/modules/virtualisation/lxc-container.nix> ];
@@ -13,6 +13,11 @@
 
   environment.systemPackages = with pkgs; [
     wget
+    tailscale
+    git
+    docker
+    docker-compose
+
   ];
 
   nixpkgs = {
