@@ -52,7 +52,6 @@
 
   ## Services
   services.tailscale.enable = true;
-  services.docker.enable = true;
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
