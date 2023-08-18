@@ -49,11 +49,11 @@
     };
   };
 
-  services.openssh = {
-    enable = true;
-    permitRootLogin = "yes";
-    passwordAuthentication = true;
-  };
+ services.openssh = {
+  enable = true;
+  settings.PasswordAuthentication = false;
+  settings.KbdInteractiveAuthentication = false;
+  #settings.PermitRootLogin = "yes";
 
   system.stateVersion = "23.05";
 }
