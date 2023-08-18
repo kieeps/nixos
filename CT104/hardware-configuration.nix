@@ -16,6 +16,21 @@
       fsType = "zfs";
     };
 
+  fileSystems."/mnt/media" =
+    { device = "tank/media";
+      fsType = "zfs";
+    };
+
+  fileSystems."/mnt/backup" =
+    { device = "tank/backup";
+      fsType = "zfs";
+    };
+
+  fileSystems."/mnt/zNVME/docker" =
+    { device = "zNVME/docker";
+      fsType = "zfs";
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
