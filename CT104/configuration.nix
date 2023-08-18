@@ -11,17 +11,47 @@
     "sys-fs-fuse-connections.mount"
   ];
 
-  # Configure console keymap
-  console.keyMap = "sv-latin1";
-
-  ## Services
-  services.openssh.enable = true;
-  services.tailscale.enable = true;
-
-  ## Packages
- environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  environment.systemPackages = with pkgs; [
     wget
   ];
+
+  nixpkgs = {
+    overlays = [
+    ];
+
+    config = {
+      allowUnfree = true;
+    };
+  };
+
+  nix = {
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+
+    settings = {
+      experimental-features = "nix-command flakes";
+      auto-optimise-store = true;
+    };
+  };
+
+  networking.hostName = "nixos-docker";
+
+  users.users = {
+    kieeps = {
+      initialPassword = "kieeps2win";
+      isNormalUser = true;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1maslZL3A8TF4lSHY0BzUtZ+TEa9Jypp+ecUyVZnYG supern@kieeps.com"
+      ];
+      extraGroups = [ "wheel" ];
+    };
+  };
+
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "yes";
+    passwordAuthentication = true;
+  };
+
   system.stateVersion = "23.05";
 }
