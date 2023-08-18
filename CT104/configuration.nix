@@ -11,4 +11,5 @@
     git
     wget
   ];
+  system.stateVersion = "23.05";
 }
