@@ -54,6 +54,6 @@
   settings.PasswordAuthentication = false;
   settings.KbdInteractiveAuthentication = false;
   #settings.PermitRootLogin = "yes";
-
+ };
   system.stateVersion = "23.05";
 }
