@@ -51,17 +51,6 @@
 
   ## virtualisation
   virtualisation.docker.enable = true;
-  virtualisation.arion = {
-   backend = "docker";
-    projects = {
-      "jellyfin" = settings.services."jellyfin".service = {
-        image = "lscr.io/linuxserver/jellyfin:latest";
-        restart = "unless-stopped";
-        environment = "PUID=1000";
-        ports = "8096";
-      };
-    };
-  };
 
   ## Services
   services.tailscale.enable = true;
