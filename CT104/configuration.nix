@@ -57,7 +57,7 @@
       "jellyfin" = settings.services."jellyfin".service = {
         image = "lscr.io/linuxserver/jellyfin:latest";
         restart = "unless-stopped";
-        environment = { PUID=1000; PGID=1000; TZ=Etc/UTC; };
+        environment = { PUID=1000; };
         ports = {"8096"};
       };
     };
