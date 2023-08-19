@@ -15,7 +15,8 @@
     wget
     tailscale
     git
-
+    btop
+    docker-compose
   ];
 
   nixpkgs = {
