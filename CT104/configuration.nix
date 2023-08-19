@@ -41,7 +41,7 @@
       initialPassword = "kieeps2win";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1maslZL3A8TF4lSHY0BzUtZ+TEa9Jypp+ecUyVZnYG supern@kieeps.com";
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1maslZL3A8TF4lSHY0BzUtZ+TEa9Jypp+ecUyVZnYG supern@kieeps.com"
         "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIA5UjtYVIaojFVR95EUqe2jwpR25auHVRnhTa+5HrysEAAAABHNzaDo= kieeps@Lappen"
       ];
       extraGroups = [ "wheel" ];
