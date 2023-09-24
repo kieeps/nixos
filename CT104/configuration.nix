@@ -19,6 +19,11 @@
     docker-compose
   ];
 
+hardware.opengl.extraPackages = with pkgs; [
+  rocm-opencl-icd
+  rocm-opencl-runtime
+];
+
   nixpkgs = {
     overlays = [
     ];
