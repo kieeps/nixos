@@ -56,6 +56,7 @@ hardware.opengl.extraPackages = with pkgs; [
 
   programs.bash.shellAliases = {
   gpull = "git --git-dir=/home/kieeps/compose/.git/ pull origin main";
+  la = "ls -als";
   ls = "ls --color=tty";
   };
 
