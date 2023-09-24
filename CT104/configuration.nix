@@ -58,6 +58,9 @@ hardware.opengl.extraPackages = with pkgs; [
   gpull = "git --git-dir=/home/kieeps/compose/.git/ pull origin main";
   la = "ls -als";
   ls = "ls --color=tty";
+  c = "xclip";
+  v = "xclip -o";
+
   };
 
   ## virtualisation
