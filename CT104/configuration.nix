@@ -17,6 +17,7 @@
     git
     btop
     docker-compose
+    xclip
   ];
 
 hardware.opengl.extraPackages = with pkgs; [
