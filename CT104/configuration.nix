@@ -54,6 +54,11 @@ hardware.opengl.extraPackages = with pkgs; [
     };
   };
 
+  programs.bash.shellAliases = {
+  gpull = "git --git-dir=/home/kieeps/compose/.git/ pull origin main";
+  ls = "ls --color=tty";
+  };
+
   ## virtualisation
   virtualisation.docker.enable = true;
 
