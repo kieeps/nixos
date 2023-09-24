@@ -50,7 +50,7 @@ hardware.opengl.extraPackages = with pkgs; [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOltNlDAwXAw2mfdyMtdleOCfPQB2GSQ9l5W9cKbg+5i supern@kieeps.com"
         "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIA5UjtYVIaojFVR95EUqe2jwpR25auHVRnhTa+5HrysEAAAABHNzaDo= kieeps@Lappen"
       ];
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [ "wheel" "docker" "video" "render" ];
     };
   };
 
