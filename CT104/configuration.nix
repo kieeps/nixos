@@ -18,6 +18,7 @@
     btop
     docker-compose
     xclip
+    teleport
   ];
 
 hardware.opengl.extraPackages = with pkgs; [
