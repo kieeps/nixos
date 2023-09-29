@@ -19,6 +19,7 @@
     docker-compose
     xclip
     teleport
+    cmatrix
   ];
 
 hardware.opengl.extraPackages = with pkgs; [
