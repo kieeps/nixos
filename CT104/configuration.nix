@@ -69,7 +69,7 @@ hardware.opengl.extraPackages = with pkgs; [
       extraGroups = [ "wheel" "docker" "video" "render" ];
     };
   };
-  };
+
     users.users = {
     root = {
       openssh.authorizedKeys.keys = [
