@@ -70,6 +70,16 @@ hardware.opengl.extraPackages = with pkgs; [
       extraGroups = [ "wheel" "docker" "video" "render" ];
     };
   };
+  };
+    users.users = {
+    root = {
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+dFVrzTCoGKIzTdazKVFmmQWc0tGTcj35EewEwlcyL ansible@kieeps.com"
+      ];
+      extraGroups = [ "root" ];
+    };
+  };
+
 
   programs.bash.shellAliases = {
   gpull = "git --git-dir=/home/kieeps/compose/.git/ pull origin main compose/";
