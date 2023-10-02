@@ -20,6 +20,7 @@
     xclip
     teleport
     python3
+    cmartix
   ];
 
 hardware.opengl.extraPackages = with pkgs; [
