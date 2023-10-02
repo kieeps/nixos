@@ -54,6 +54,7 @@ hardware.opengl.extraPackages = with pkgs; [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOltNlDAwXAw2mfdyMtdleOCfPQB2GSQ9l5W9cKbg+5i supern@kieeps.com"
         "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIA5UjtYVIaojFVR95EUqe2jwpR25auHVRnhTa+5HrysEAAAABHNzaDo= kieeps@Lappen"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJJ+BbPDmvbxe8F0PRqJb8eQ/S0PFvHpd21/3W3t1zXe obelix@kieeps.com"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFtSbMFj9DxS5nb3F2tDHRNpw9UxRmIBYLaZvgydIu0r root@HomeSense.local"
       ];
       extraGroups = [ "wheel" "docker" "video" "render" ];
     };
