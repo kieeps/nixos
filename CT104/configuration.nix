@@ -20,7 +20,6 @@
     xclip
     teleport
     python3
-    cmatrix
   ];
 
 hardware.opengl.extraPackages = with pkgs; [
