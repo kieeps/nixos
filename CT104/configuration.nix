@@ -11,6 +11,7 @@
     "sys-fs-fuse-connections.mount"
   ];
 
+### System packages
   environment.systemPackages = with pkgs; [
     wget
     tailscale
@@ -21,6 +22,16 @@
     teleport
     python3
   ];
+
+### PIP
+let
+  pip-pkgs = ps: with ps; [
+    docker
+  ];
+in
+environment.systemPackages = [
+  (pkgs.python3.withPackages pip-pkgs)
+];
 
 hardware.opengl.extraPackages = with pkgs; [
   rocm-opencl-icd
