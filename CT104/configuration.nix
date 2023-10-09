@@ -20,7 +20,7 @@
     docker-compose
     xclip
     teleport
-    (python38.withPackages(ps: with ps; [ docker ]))
+    (python310.withPackages(ps: with ps; [ docker ]))
   ];
 
 
