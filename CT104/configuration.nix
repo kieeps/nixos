@@ -20,18 +20,9 @@
     docker-compose
     xclip
     teleport
-    python3
+    (python38.withPackages(ps: with ps; [ docker ]))
   ];
 
-### PIP
-let
-  pip-pkgs = ps: with ps; [
-    docker
-  ];
-in
-environment.systemPackages = [
-  (pkgs.python3.withPackages pip-pkgs)
-];
 
 hardware.opengl.extraPackages = with pkgs; [
   rocm-opencl-icd
