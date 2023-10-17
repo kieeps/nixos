@@ -100,10 +100,10 @@ hardware.opengl.extraPackages = with pkgs; [
 
   ## Services
   services.tailscale.enable = true;
-  services.teleport = { 
-    enable = true;
-    package = teleport_13;
-  };
+  # services.teleport = { 
+  #   enable = true;
+  #   package = teleport_13;
+  # };
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
