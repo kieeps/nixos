@@ -19,7 +19,7 @@
     btop
     docker-compose
     xclip
-    teleport
+    teleport_13
     (python310.withPackages(ps: with ps; [ docker ]))
   ];
 
@@ -100,6 +100,7 @@ hardware.opengl.extraPackages = with pkgs; [
 
   ## Services
   services.tailscale.enable = true;
+  # services.teleport.enable = true;
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
