@@ -86,6 +86,8 @@ hardware.opengl.extraPackages = with pkgs; [
   programs.bash.shellAliases = {
   gp = "git pull";
   cdc = "cd compose";
+  dcp = "docker-compose pull";
+  dcu = "docker-compose up";
   la = "ls -als";
   ls = "ls --color=tty";
   c = "xclip";
