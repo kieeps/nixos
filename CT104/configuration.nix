@@ -19,7 +19,6 @@
     btop
     docker-compose
     xclip
-    # teleport_13
     (python310.withPackages(ps: with ps; [ docker ]))
   ];
 
