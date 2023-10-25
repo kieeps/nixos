@@ -19,6 +19,7 @@
     btop
     docker-compose
     xclip
+    screen
     (python310.withPackages(ps: with ps; [ docker ]))
   ];
 
