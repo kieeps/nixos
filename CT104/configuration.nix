@@ -102,7 +102,7 @@ hardware.opengl.extraPackages = with pkgs; [
   services.tailscale.enable = true;
   services.teleport = { 
     enable = true;
-    package = pkgs.teleport_13;
+    package = pkgs.teleport;
   };
   services.openssh = {
     enable = true;
