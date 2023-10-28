@@ -20,6 +20,7 @@
     docker-compose
     xclip
     screen
+    google-chrome
     (python310.withPackages(ps: with ps; [ docker ]))
   ];
 
