@@ -135,6 +135,7 @@
       signal-desktop
       vim
       git
+      btop
     ];
   };
 
