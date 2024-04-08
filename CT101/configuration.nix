@@ -14,6 +14,7 @@
 ### System packages
   environment.systemPackages = with pkgs; [
     wget
+    tailscale
     git
     btop
     docker-compose
@@ -21,11 +22,6 @@
     (python310.withPackages(ps: with ps; [ docker ]))
   ];
 
-
-hardware.opengl.extraPackages = with pkgs; [
-  rocm-opencl-icd
-  rocm-opencl-runtime
-];
 
   nixpkgs = {
     overlays = [
@@ -50,27 +46,12 @@ hardware.opengl.extraPackages = with pkgs; [
       initialPassword = "kieeps2win";
       isNormalUser = true;
       uid = 1000;
-      ];
       extraGroups = [ "wheel" "docker" ];
     };
-  };
-    users.users = {
-    ansible = {
-      initialPassword = "ansible2win";
-      isNormalUser = true;
-      uid = 1001;
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+dFVrzTCoGKIzTdazKVFmmQWc0tGTcj35EewEwlcyL ansible@kieeps.com"
-      ];
-      extraGroups = [ "wheel" "docker" "video" "render" ];
-    };
-  };
+
 
     users.users = {
     root = {
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+dFVrzTCoGKIzTdazKVFmmQWc0tGTcj35EewEwlcyL ansible@kieeps.com"
-      ];
       extraGroups = [ "root" ];
     };
   };
@@ -84,17 +65,19 @@ hardware.opengl.extraPackages = with pkgs; [
   la = "ls -als";
   ls = "ls --color=tty";
 
+
   };
 
   ## virtualisation
   virtualisation.docker.enable = true;
 
   ## Services
+
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
     settings.KbdInteractiveAuthentication = false;
     #settings.PermitRootLogin = "yes";
  };
-  system.stateVersion = "23.11";
+  system.stateVersion = "23.05";
 }
