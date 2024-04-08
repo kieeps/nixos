@@ -14,13 +14,10 @@
 ### System packages
   environment.systemPackages = with pkgs; [
     wget
-    tailscale
     git
     btop
     docker-compose
-    xclip
     screen
-    google-chrome
     (python310.withPackages(ps: with ps; [ docker ]))
   ];
 
@@ -53,7 +50,7 @@ hardware.opengl.extraPackages = with pkgs; [
       initialPassword = "kieeps2win";
       isNormalUser = true;
       uid = 1000;
- #     extraGroups = [ "wheel" "docker" ];
+      extraGroups = [ "wheel" "docker" ];
     };
   };
 
@@ -83,11 +80,6 @@ hardware.opengl.extraPackages = with pkgs; [
   virtualisation.docker.enable = true;
 
   ## Services
-  services.tailscale.enable = true;
-  services.teleport = { 
-    enable = true;
-    package = pkgs.teleport;
-  };
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
