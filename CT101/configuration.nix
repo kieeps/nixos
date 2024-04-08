@@ -78,8 +78,9 @@ hardware.opengl.extraPackages = with pkgs; [
 
   ## virtualisation
   virtualisation.docker.enable = true;
-
+  
   ## Services
+  services.tailscale.enable = true;
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
