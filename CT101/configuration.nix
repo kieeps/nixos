@@ -53,18 +53,7 @@ hardware.opengl.extraPackages = with pkgs; [
       initialPassword = "kieeps2win";
       isNormalUser = true;
       uid = 1000;
-      extraGroups = [ "wheel" "docker" ];
-    };
-  };
-    users.users = {
-    ansible = {
-      initialPassword = "ansible2win";
-      isNormalUser = true;
-      uid = 1001;
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+dFVrzTCoGKIzTdazKVFmmQWc0tGTcj35EewEwlcyL ansible@kieeps.com"
-      ];
-      extraGroups = [ "wheel" "docker" "video" "render" ];
+ #     extraGroups = [ "wheel" "docker" ];
     };
   };
 
