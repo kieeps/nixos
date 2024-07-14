@@ -15,3 +15,6 @@ jobs:
     - name: 'Get user'
       shell: bash
       run: 'echo $USER'
+    - name: 'create file'
+      shell: bash
+      run: 'touch /root/ci/bajskorv123'
