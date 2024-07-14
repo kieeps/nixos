@@ -9,6 +9,6 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: Test
-      working-directory: <path to repo>
+      working-directory: /root/ci
       shell: cmd
-      run: touch test
+      run: 'touch bajs2'
