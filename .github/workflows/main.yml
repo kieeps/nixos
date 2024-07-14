@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deployment:
+    runs-on: self-hosted
+    steps:
+    - name: Test
+      working-directory: <path to repo>
+      shell: cmd
+      run: touch test
