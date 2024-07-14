@@ -11,4 +11,4 @@ jobs:
     - name: Test
       working-directory: /root/ci
       shell: cmd
-      run: 'touch bajs2'
+      run: 'ps x'
