@@ -8,7 +8,7 @@ jobs:
   deployment:
     runs-on: self-hosted
     steps:
-    - name: Test
+    - name: 'Get Config'
       working-directory: /root/ci
       shell: bash
-      run: 'ps x'
+      run: 'touch bajskorv'
