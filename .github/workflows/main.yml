@@ -9,6 +9,6 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: 'Get Config'
-      working-directory: /home/kieeps/ci
-      shell: sh
-      run: 'touch bajskorv'
+#      working-directory: /home/kieeps/ci
+      shell: bash
+      run: 'pwd'
