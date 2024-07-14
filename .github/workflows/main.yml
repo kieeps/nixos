@@ -8,7 +8,10 @@ jobs:
   deployment:
     runs-on: self-hosted
     steps:
-    - name: 'Get Config'
+    - name: 'Get PWD'
 #      working-directory: /home/kieeps/ci
       shell: bash
       run: 'pwd'
+    - name: 'Get user'
+      shell: bash
+      run: 'echo $USER'
