@@ -21,3 +21,6 @@ jobs:
     - name: 'look for file'
       shell: bash
       run: 'ls'
+    - name: 'Fetch files'
+      shell: bash
+      run: 'git clone git@github.com:kieeps/nixos.git'
