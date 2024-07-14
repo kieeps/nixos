@@ -17,4 +17,4 @@ jobs:
       run: 'echo $USER'
     - name: 'create file'
       shell: bash
-      run: 'touch /root/ci/bajskorv123'
+      run: 'touch /home/kieeps/ci/bajskorv123'
