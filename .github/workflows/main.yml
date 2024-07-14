@@ -10,5 +10,5 @@ jobs:
     steps:
     - name: 'Get Config'
       working-directory: /home/kieeps/ci
-      shell: bash
+      shell: sh
       run: 'touch bajskorv'
