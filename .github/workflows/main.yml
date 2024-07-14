@@ -17,4 +17,7 @@ jobs:
       run: 'echo $USER'
     - name: 'create file'
       shell: bash
-      run: 'touch /home/kieeps/ci/bajskorv123'
+      run: 'touch bajskorv123'
+    - name: 'look for file'
+      shell: bahs
+      run: 'ls'
