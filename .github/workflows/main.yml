@@ -19,5 +19,5 @@ jobs:
       shell: bash
       run: 'touch bajskorv123'
     - name: 'look for file'
-      shell: bahs
+      shell: bash
       run: 'ls'
