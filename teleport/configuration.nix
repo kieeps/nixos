@@ -79,7 +79,7 @@
     package = pkgs.teleport_16;
     settings = {
       teleport = {
-        nodename = "teleport-main";
+        nodename = "teleport.kieeps.com";
       };
       auth_service = {
         enabled = true;
