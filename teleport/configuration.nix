@@ -71,6 +71,9 @@
 
 
   ## Services
+
+  # Teleport
+  systemd.services.teleport.path = [ pkgs.getent ];
   services.teleport = { 
     enable = true;
     package = pkgs.teleport_16;
