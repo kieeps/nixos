@@ -73,7 +73,43 @@
   ## Services
   services.teleport = { 
     enable = true;
-    package = pkgs.teleport;
+    package = teleport_16;
+    settings = {
+      teleport = {
+        nodename = teleport-main;
+        data_dir =  /var/lib/teleport;
+
+      };
+      auth_service = {
+        enabled = true;
+        listen_addr = 0.0.0.0:3025;
+        proxy_listener_mode = multiplex;
+        cluster_name = teleport.kieeps.com;
+        client_idle_timeout = never;
+      };
+      ssh_service = {
+        enabled = true;
+      };
+      proxy_service = {
+        enabled = true;
+        web_listen_addr = 0.0.0.0:443;
+        public_addr = teleport.kieeps.com:443;
+        https_keypairs = [
+          { key_file = "/root/cert/kieeps.com/key.pem"; cert_file = "/root/cert/kieeps.com/fullchain.pem"; }
+          { key_file = "/root/cert/teleport.kieeps.com/key.pem"; cert_file = "/root/cert/teleport.kieeps.com/fullchain.pem"; }
+        ];
+        app_service = {
+          enabled = true;
+          apps = [
+            { name = "opnsense"; uri = "http://192.168.1.1:8899/"; public_addr = ""; insecure_skip_verify = "true" }
+            { name = "semaphore"; uri = "http://192.168.1.170:3000"; public_addr = ""; insecure_skip_verify = "false" }
+            { name = "opnsense"; uri = "http://192.168.1.1:8899/"; public_addr = ""; insecure_skip_verify = "true" }
+            { name = "opnsense"; uri = "http://192.168.1.1:8899/"; public_addr = ""; insecure_skip_verify = "true" }
+            { name = "opnsense"; uri = "http://192.168.1.1:8899/"; public_addr = ""; insecure_skip_verify = "true" }
+          ];
+        };
+      };
+    };
   };
 
   services.openssh = {
