@@ -95,17 +95,17 @@
         web_listen_addr = "0.0.0.0:443";
         public_addr = teleport.kieeps.com:443;
         https_keypairs = [
-          { key_file = "/root/cert/kieeps.com/key.pem"; cert_file = "/root/cert/kieeps.com/fullchain.pem"; }
-          { key_file = "/root/cert/teleport.kieeps.com/key.pem"; cert_file = "/root/cert/teleport.kieeps.com/fullchain.pem"; }
+          { key_file = "/root/cert/kieeps.com/key.pem"; cert_file = "/root/cert/kieeps.com/fullchain.pem"; };
+          { key_file = "/root/cert/teleport.kieeps.com/key.pem"; cert_file = "/root/cert/teleport.kieeps.com/fullchain.pem"; };
         ];
         app_service = {
           enabled = true;
           apps = [
-            { name = "opnsense"; uri = "http://192.168.1.1:8899/"; public_addr = ""; insecure_skip_verify = "true" }
-            { name = "semaphore"; uri = "http://192.168.1.170:3000"; public_addr = ""; insecure_skip_verify = "false" }
-            { name = "proxmox"; uri = "https://192.168.1.3:8006"; public_addr = ""; insecure_skip_verify = "true" }
-            { name = "idrac"; uri = "https://192.168.1.11"; public_addr = ""; insecure_skip_verify = "false" }
-            { name = "pikvm"; uri = "https://192.168.1.15:443"; public_addr = ""; insecure_skip_verify = "true" }
+            { name = "opnsense"; uri = "http://192.168.1.1:8899/"; public_addr = ""; insecure_skip_verify = "true" };
+            { name = "semaphore"; uri = "http://192.168.1.170:3000"; public_addr = ""; insecure_skip_verify = "false" };
+            { name = "proxmox"; uri = "https://192.168.1.3:8006"; public_addr = ""; insecure_skip_verify = "true" };
+            { name = "idrac"; uri = "https://192.168.1.11"; public_addr = ""; insecure_skip_verify = "false" };
+            { name = "pikvm"; uri = "https://192.168.1.15:443"; public_addr = ""; insecure_skip_verify = "true" };
           ];
         };
       };
