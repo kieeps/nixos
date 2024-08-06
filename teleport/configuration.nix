@@ -95,7 +95,7 @@
       proxy_service = {
         enabled = true;
         web_listen_addr = "0.0.0.0:443";
-        public_addr = "teleport.kieeps.com";
+        public_addr = "teleport.kieeps.com:443";
         https_keypairs = [
           { key_file = "/root/cert/kieeps.com/key.pem"; cert_file = "/root/cert/kieeps.com/fullchain.pem"; }
           { key_file = "/root/cert/teleport.kieeps.com/key.pem"; cert_file = "/root/cert/teleport.kieeps.com/fullchain.pem"; }
