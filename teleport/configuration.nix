@@ -72,7 +72,7 @@
 
   ## Services
   services.teleport = { 
-    enable = "yes";
+    enable = true;
     package = pkgs.teleport_16;
     settings = {
       teleport = {
@@ -81,17 +81,17 @@
 
       };
       auth_service = {
-        enabled = "yes";
+        enabled = true;
         listen_addr = "0.0.0.0:3025";
         proxy_listener_mode = "multiplex";
         cluster_name = "teleport.kieeps.com";
         client_idle_timeout = "never";
       };
       ssh_service = {
-        enabled = "yes";
+        enabled = true;
       };
       proxy_service = {
-        enabled = "yes";
+        enabled = true;
         web_listen_addr = "0.0.0.0:443";
         public_addr = teleport.kieeps.com:443;
         https_keypairs = [
@@ -100,7 +100,7 @@
         ];
       };
       app_service = {
-        enabled = "yes";
+        enabled = true;
         apps = [
           { name = "opnsense"; uri = "http://192.168.1.1:8899/"; public_addr = ""; insecure_skip_verify = "true"; }
           { name = "semaphore"; uri = "http://192.168.1.170:3000"; public_addr = ""; insecure_skip_verify = "false"; }
