@@ -76,16 +76,16 @@
     package = pkgs.teleport_16;
     settings = {
       teleport = {
-        nodename = teleport-main;
+        nodename = "teleport-main";
         data_dir =  /var/lib/teleport;
 
       };
       auth_service = {
         enabled = true;
         listen_addr = "0.0.0.0:3025";
-        proxy_listener_mode = multiplex;
-        cluster_name = teleport.kieeps.com;
-        client_idle_timeout = never;
+        proxy_listener_mode = "multiplex";
+        cluster_name = "teleport.kieeps.com";
+        client_idle_timeout = "never";
       };
       ssh_service = {
         enabled = true;
