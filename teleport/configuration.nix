@@ -79,7 +79,8 @@
     package = pkgs.teleport_16;
     settings = {
       teleport = {
-        # nodename = "teleportMain";
+        nodename = "teleportMain";
+        advertise_ip = "192.168.1.2";
       };
       auth_service = {
         enabled = true;
@@ -94,7 +95,7 @@
       proxy_service = {
         enabled = true;
         web_listen_addr = "0.0.0.0:443";
-        public_addr = teleport.kieeps.com:443;
+        public_addr = "teleport.kieeps.com";
         https_keypairs = [
           { key_file = "/root/cert/kieeps.com/key.pem"; cert_file = "/root/cert/kieeps.com/fullchain.pem"; }
           { key_file = "/root/cert/teleport.kieeps.com/key.pem"; cert_file = "/root/cert/teleport.kieeps.com/fullchain.pem"; }
