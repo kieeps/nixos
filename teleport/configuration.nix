@@ -36,7 +36,7 @@
     };
   };
 
-  networking.hostName = "teleport";
+  networking.hostName = "teleport-main";
 
   users.users = {
     kieeps = {
