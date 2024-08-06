@@ -72,8 +72,8 @@
 
   ## Services
   services.teleport = { 
-    enable = false;
-    package = pkgs.teleport_14;
+    enable = true;
+    package = pkgs.teleport_16;
     settings = {
       teleport = {
         nodename = "teleport-main";
