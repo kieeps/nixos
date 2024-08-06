@@ -72,7 +72,7 @@
 
   ## Services
   services.teleport = { 
-    enable = true;
+    enable = false;
     package = pkgs.teleport_14;
     settings = {
       teleport = {
