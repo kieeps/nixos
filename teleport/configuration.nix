@@ -80,7 +80,7 @@
     settings = {
       teleport = {
         nodename = "teleport-main";
-        data_dir =  /var/lib/teleport;
+        # data_dir =  /var/lib/teleport;
 
       };
       auth_service = {
