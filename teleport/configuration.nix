@@ -36,7 +36,7 @@
     };
   };
 
-  networking.hostName = "teleport-main";
+  networking.hostName = "teleportMain";
 
   users.users = {
     kieeps = {
@@ -79,7 +79,7 @@
     package = pkgs.teleport_16;
     settings = {
       teleport = {
-        nodename = teleport.kieeps.com:443;
+        # nodename = "teleportMain";
       };
       auth_service = {
         enabled = true;
