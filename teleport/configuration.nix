@@ -11,6 +11,11 @@
     "sys-fs-fuse-connections.mount"
   ];
 
+networking.extraHosts =
+  ''
+    192.168.1.2 teleport.kieeps.com
+  '';
+
 ### System packages
   environment.systemPackages = with pkgs; [
     wget
