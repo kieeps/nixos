@@ -81,7 +81,6 @@
       teleport = {
         nodename = "teleport-main";
         data_dir =  /root/teleport;
-
       };
       auth_service = {
         enabled = true;
