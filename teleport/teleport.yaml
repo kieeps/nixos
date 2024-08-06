@@ -1,0 +1,109 @@
+version: v3
+teleport:
+  nodename: teleport-main
+  data_dir: /var/lib/teleport
+#  proxy_server: teleport.kieeps.com:443
+  log:
+    output: stderr
+    severity: INFO
+    format:
+      output: text
+
+auth_service:
+  enabled: "yes"
+  listen_addr: 0.0.0.0:3025
+  proxy_listener_mode: multiplex
+  cluster_name: teleport.kieeps.com
+  client_idle_timeout: never
+#  assist:
+#    openai:
+#      api_token_path: /etc/openai_key
+
+ssh_service:
+  enabled: "yes"
+
+proxy_service:
+  enabled: "yes"
+#  advertise_ip: 192.168.1.170
+  web_listen_addr: 0.0.0.0:443
+  public_addr: teleport.kieeps.com:443
+  https_keypairs:
+  - key_file: /root/cert/kieeps.com/key.pem
+    cert_file: /root/cert/kieeps.com/fullchain.pem
+  - key_file: /root/cert/teleport.kieeps.com/key.pem
+    cert_file: /root/cert/teleport.kieeps.com/fullchain.pem
+  acme: {}
+#  assist:
+#    openai:
+#      api_token_path: /etc/openai_key
+
+app_service:
+  enabled: "yes"
+  debug_app: true
+  apps:
+  - name: opnsense
+    uri: http://192.168.1.1:8899/
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: semaphore
+    uri: http://192.168.1.170:3000
+    public_addr: ""
+    insecure_skip_verify: false
+  - name: proxmox
+    uri: https://192.168.1.3:8006
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: idrac
+    uri: https://192.168.1.11
+    public_addr: ""
+    insecure_skip_verify: false
+  - name: pikvm
+    uri: https://192.168.1.15:443
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: switch
+    uri: https://192.168.1.7:4343
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: wifi
+    uri: https://192.168.1.22:4343
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: traefik
+    uri: https://dashboard-int.local.kieeps.com
+    public_addr: ""
+    insecure_skip_verify: false
+  - name: homeassistant
+    uri: http://192.168.1.30:8123
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: audiobookshelf
+    uri: http://192.168.1.170:13378
+    public_addr: ""
+    insecure_skip_verify: false
+  - name: proxmox-hetzner
+    uri: https://65.21.73.150:8006
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: proxmox-hetzner-2
+    uri: https://100.87.100.28:8006
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: uptime
+    uri: https://up.local.kieeps.com
+    public_addr: ""
+    insecure_skip_verify: false
+  - name: wazuh
+    uri: https://192.168.1.170:5601
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: kestra
+    uri: http://100.117.24.61:8080
+    public_addr: ""
+    insecure_skip_verify: true
+  - name: rocketchat
+    uri: http://192.168.100.171:3000
+    labels:
+      env: "lst"
+    public_addr: ""
+    insecure_skip_verify: false
