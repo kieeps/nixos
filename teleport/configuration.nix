@@ -11,10 +11,13 @@
     "sys-fs-fuse-connections.mount"
   ];
 
-networking.extraHosts =
-  ''
-    192.168.1.2 teleport.kieeps.com
-  '';
+  networking.extraHosts = "192.168.1.2 teleport.kieeps.com";
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 80 443 3021 3022 3023 3024 3025 3026 3028 3036 3080 5432 6379 27017 ];
+  };
+
 
 ### System packages
   environment.systemPackages = with pkgs; [
