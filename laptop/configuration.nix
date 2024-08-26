@@ -1,24 +1,44 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+
+
+# Edit this configuration file to define what should be installed on your system.  Help is available in the configuration.nix(5) man page and in the NixOS manual (accessible by running ‘nixos-help’).
 
 
 { config, pkgs, ... }:
-
+let
+  unstableTarball =
+    fetchTarball
+      https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      <home-manager/nixos> 
     ];
-
-
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
 #  programs.zsh.enable = true;
-
+boot.binfmt.registrations.appimage = {
+  wrapInterpreterInShell = false;
+  interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+  recognitionType = "magic";
+  offset = 0;
+  mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
+  magicOrExtension = ''\x7fELF....AI\x02'';
+};
 
   programs.zsh = {
     enable = true;
     enableGlobalCompInit = false;
+    shellAliases = {
+      cp = "rsync -avh --inplace --no-whole-file --no-compress --progress --info=progress2";
+      nanoc = "sudo nano /etc/nixos/configuration.nix";
+    };
     ohMyZsh = {
       enable = true;
       theme = "bira";
@@ -33,21 +53,37 @@
     };
   };
 
+# Steam
+  programs.steam = {
+    enable = true;
+#    extraCompatPackages = [ pkgs.proton-ge-bin ];
+  };
+
+# ADB
+  programs.adb = {
+    enable = true;
+  };
 
 #  oh-my-zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
   # Bootloader.
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.theme = true;
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.loader.systemd-boot.configurationLimit = 10;
   # Vulcan
-  hardware.opengl.driSupport = true;
+  # hardware.opengl.driSupport = true;
   # For 32 bit applications
-  hardware.opengl.driSupport32Bit = true;
+  # hardware.opengl.driSupport32Bit = true;
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -59,6 +95,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 
+  nix.settings.experimental-features = [ "nix-command flakes" ];
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -74,23 +111,69 @@
     LC_TIME = "sv_SE.UTF-8";
   };
 
+  # Teamviewer 
+#  services.teamviewer.enable = true;
   # enable the tailscale service
   services.tailscale.enable = true;
+  # enable netbird service
+#  services.netbird.enable = true;
+  # enable TLP Service
+  services.tlp.enable = true;
+  services.power-profiles-daemon.enable = false;
 
   ## virtualisation
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    waydroid = {
+      enable = true;
+    };
+    containers = {
+      enable = true;
+    };
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
+  virtualisation.libvirtd = {
+  enable = true;
+  qemu = {
+    package = pkgs.qemu_kvm;
+    runAsRoot = true;
+    swtpm.enable = true;
+    ovmf = {
+      enable = true;
+      packages = [(pkgs.unstable.OVMF.override {
+        secureBoot = true;
+ #       tpmSupport = true;
+      }).fd];
+    };
+  };
+};
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  # services.displayManager.sddm.enable = true;
+  services.displayManager.defaultSession = "plasma";
+  services.xserver.displayManager = {
+    lightdm = { 
+      enable = true; 
+      greeter.enable = false; 
+    };
+  };
 
+
+  services.desktopManager.plasma6.enable = true;
+  programs.kdeconnect = {
+    enable = true;
+  };
   # Configure keymap in X11
   services.xserver = {
-    layout = "se";
-    xkbVariant = "";
+    xkb.layout = "se";
+    xkb.variant = "";
+    videoDrivers = [ "amdgpu" ];
   };
 
   # Configure console keymap
@@ -100,7 +183,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  # sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -119,40 +202,74 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kieeps = {
     isNormalUser = true;
     description = "kieeps";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "podman" "render" "video" ];
     packages = with pkgs; [
       kcalc
       firefox
       kate
       discord
       yakuake
-      steam
       google-chrome
       signal-desktop
-      vim
       git
+      htop
+      element-desktop
+      cups-brother-hl1210w
+      nextcloud-client
+      libreoffice
+      tlp
+      yubico-pam
+      nheko
+      yubikey-manager-qt
+      cmatrix
+      spice
+      spice-gtk
+      moonlight-qt
+      p7zip
+      vscode
+      warp-terminal
+      podman-desktop
+      android-tools
+      android-udev-rules
       btop
+      lutris
+      vscode
+     (wineWowPackages.full.override {
+       wineRelease = "staging";
+       mingwSupport = true;
+     })
+     winetricks
     ];
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "olm-3.2.16"
+  ];
+
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "kieeps";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "kieeps";
+
+ 
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  
+environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-  ];
-
+  pkgs.rocmPackages.rocm-smi  
+];
+  # programs.btop.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -183,11 +300,6 @@ environment.sessionVariables = {
 };
 
 
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 
-home-manager.users.kieeps = { pkgs, config, ... }: {
-home.stateVersion = "23.05";  
-  home.packages = [  ];
-  };
 }
-
