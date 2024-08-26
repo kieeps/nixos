@@ -4,43 +4,36 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules = [ "mpt3sas" "nvme" "xhci_pci" "vfio_pci" "ahci" "usbhid" "usb_storage" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "zNVME/subvol-104-disk-0";
-      fsType = "zfs";
+    { device = "/dev/disk/by-uuid/c0ed11e4-dd85-4b3a-b13b-b827b935479e";
+      fsType = "ext4";
     };
 
-  fileSystems."/mnt/media" =
-    { device = "tank/media";
-      fsType = "zfs";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/1AE2-C9F8";
+      fsType = "vfat";
     };
 
-  fileSystems."/mnt/backup" =
-    { device = "tank/backup";
-      fsType = "zfs";
-    };
-
-  fileSystems."/mnt/zNVME/docker" =
-    { device = "zNVME/docker";
-      fsType = "zfs";
-    };
-
-  swapDevices = [ ];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/d4b3fe1a-0fb6-48f1-b853-55b28ec5102d"; }
+    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.bonding_masters.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eth0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
